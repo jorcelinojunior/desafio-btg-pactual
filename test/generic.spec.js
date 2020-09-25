@@ -13,6 +13,7 @@ chai.use(chaiHttp)
 chai.use(chaiJsonSchema)
 
 const meSchema = {}
+const expect = chai.expect;
 
 describe('Generic:', () => {
 
@@ -21,9 +22,9 @@ describe('Generic:', () => {
             .get(`${apiBasePath}/me`)
             .set("Authorization", "Bearer " + token)
             .end((error, res) => {
-                chai.expect(error).to.be.null
-                chai.expect(res).to.be.jsonSchema(meSchema)
-                chai.expect(res).to.have.status(200)
+                expect(error).to.be.null
+                expect(res).to.be.jsonSchema(meSchema)
+                expect(res).to.have.status(200)
             })
     })
 })

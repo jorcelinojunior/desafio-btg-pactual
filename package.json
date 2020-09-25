@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -- -r esm -r dotenv/config index.js",
-    "test": "mocha test --require @babel/register --exit"
+    "test": "mocha test --require @babel/register --timeout 3000 --exit"
   },
   "keywords": [],
   "author": "",

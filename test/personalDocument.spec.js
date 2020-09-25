@@ -9,6 +9,8 @@ import Config from './../config'
 const apiBasePath = Config.API_BASE_PATH 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNWY2YzI1MGY1NjYzNGEyMGU4Nzg5MWQ0IiwiaWF0IjoxNjAxMDIyNjgxLCJleHAiOjE2MDE2Mjc0ODF9.0yqqHagSzldx9KSGbKfijHBIiCAhmQiOjFsxncVooJE"
 
+const expect = chai.expect;
+
 chai.use(chaiHttp)
 chai.use(chaiJsonSchema)
 
@@ -32,9 +34,9 @@ describe('PersonalDocument:', () => {
             .get(`${apiBasePath}/document`)
             .set("Authorization", "Bearer " + token)
             .end((error, res) => {
-                chai.expect(error).to.be.null
-                chai.expect(res).to.have.status(200)
-                chai.expect(res).to.be.jsonSchema(personalDocumentSchema)
+                expect(error).to.be.null
+                expect(res).to.have.status(200)
+                expect(res).to.be.jsonSchema(personalDocumentSchema)
             })
     })
 
@@ -49,10 +51,10 @@ describe('PersonalDocument:', () => {
                 rg: "MG-12.345.678"
             })
             .end((error, res) => {
-                chai.expect(error).to.be.null
-                chai.expect(res).to.be.an('object')
-                chai.expect(res).to.have.status(201)
-                chai.expect(res.body).to.containSubset(personalDocumentSchema)
+                expect(error).to.be.null
+                expect(res).to.be.an('object')
+                expect(res).to.have.status(201)
+                expect(res.body).to.containSubset(personalDocumentSchema)
             })
     })
 })
