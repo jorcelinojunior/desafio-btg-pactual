@@ -1,7 +1,6 @@
-import restify from 'restify'
+
 import fs from 'fs'
 import { authMiddleware } from './../utils/authMiddleware'
-import Config from './../../config'
 
 let controllers      = {}
 let controllers_path = process.cwd() + '/app/controllers'
@@ -12,30 +11,22 @@ fs.readdirSync(controllers_path).forEach((file) => {
     }
 })
 
-export const server = restify.createServer(
-    {
-        name    : 'desafio-btg-pactual',
-        version : '1.0.0'
-    }
-)
+export const configureRoutes = (app) => {
+    const apiBasePath = '/api/v1'
 
-server
-    .use(restify.plugins.queryParser({ mapParams: false, allowDots: true }))
-    .use(restify.plugins.bodyParser({ mapParams: false}))
+    // User Start
+    app.post(`${apiBasePath}/signup`, controllers.user.signUp)
+    app.get(`${apiBasePath}/login`, controllers.user.login)
+    app.get(`${apiBasePath}/users`, authMiddleware, controllers.user.user)
 
-// User Start
-server.post('/api/v1/signup', controllers.user.signUp)
-server.get('/api/v1/login', controllers.user.login)
-server.get('/api/v1/users', authMiddleware, controllers.user.user)
+    // PersonalDocument Start
+    app.post(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.createDocument)
+    app.get(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.getDocument)
 
-// PersonalDocument Start
-server.post('/api/v1/document', authMiddleware, controllers.personalDocument.createDocument)
-server.get('/api/v1/document', authMiddleware, controllers.personalDocument.getDocument)
-
-// Generic Start
-server.get('/api/v1/me', authMiddleware, controllers.generic.me)
-
-server.start = () => {
-    server.listen(Config.SERVER_PORT, () => console.log(`API listening on port: ${Config.SERVER_PORT}`))
-    return server
+    // Generic Start
+    app.get(`${apiBasePath}/me`, authMiddleware, controllers.generic.me)
 }
+
+
+
+
