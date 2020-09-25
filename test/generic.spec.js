@@ -12,17 +12,9 @@ const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNWY2YzI1MGY1NjYz
 chai.use(chaiHttp)
 chai.use(chaiJsonSchema)
 
-const meSchema = {
-    "_id": "5f6c250f56634a20e87891d4",
-    "name": "Jorcelino",
-    "email": "01jorcelino@live.com",
-    "createdAt": "2020-09-24T04:48:15.903Z",
-    "updatedAt": "2020-09-24T04:48:15.903Z",
-    "__v": 0,
-    "id": "5f6c250f56634a20e87891d4"
-}
+const meSchema = {}
 
-describe('Testes de integração', () => {
+describe('Generic:', () => {
 
     it(`${apiBasePath}/me - GET`, () => {
         chai.request(server)

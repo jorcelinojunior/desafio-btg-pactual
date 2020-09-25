@@ -1,33 +1,42 @@
 import chai from 'chai'
-import chaiHttp  from 'chai-http'
+import chaiHttp from 'chai-http'
 import chaiJsonSchema from 'chai-json-schema'
 
 // import user from './../app/controllers/user'
 import {server} from './../app/core/server'
 import Config from './../config'
 
-const apiBasePath = Config.API_BASE_PATH 
+const apiBasePath = Config.API_BASE_PATH
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNWY2YzI1MGY1NjYzNGEyMGU4Nzg5MWQ0IiwiaWF0IjoxNjAxMDIyNjgxLCJleHAiOjE2MDE2Mjc0ODF9.0yqqHagSzldx9KSGbKfijHBIiCAhmQiOjFsxncVooJE"
 
 chai.use(chaiHttp)
 chai.use(chaiJsonSchema)
 
-const userSchema = {
-    "user": {
-        "_id": "5f6c250f56634a20e87891d4",
-        "name": "Jorcelino",
-        "email": "01jorcelino@live.com",
-        "createdAt": "2020-09-24T04:48:15.903Z",
-        "updatedAt": "2020-09-24T04:48:15.903Z",
-        "__v": 0,
-        "id": "5f6c250f56634a20e87891d4"
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNWY2YzI1MGY1NjYzNGEyMGU4Nzg5MWQ0IiwiaWF0IjoxNjAxMDIyNjgxLCJleHAiOjE2MDE2Mjc0ODF9.0yqqHagSzldx9KSGbKfijHBIiCAhmQiOjFsxncVooJE"
+let userSchema = {
+    title: 'User Schema v1',
+    type: 'object',
+    required: ['user', 'token', 'name'],
+    properties: {
+        user: {
+            type: 'object',
+            minItems: 1,
+            uniqueItems: true
+        },
+        token: {
+            type: 'string'
+        },
+        name: {
+            type: 'string',
+            minimum: 3
+        }
+    }
 }
 
-describe('Testes de integração User', () => {
 
-    it(`${apiBasePath}/signup - POST`, () => {
-        chai.request(server)
+describe('User:', () => {
+
+    it(`${apiBasePath}/signup - POST`, async () => {
+        return chai.request(server)
             .post(`${apiBasePath}/signup`)
             .send({
                 name: "Jorcelino Junior",
@@ -35,17 +44,32 @@ describe('Testes de integração User', () => {
                 password: "123456"
             })
             .end((error, res) => {
-                console.log('error:: ',error)
                 chai.expect(error).to.be.null
                 chai.expect(res).to.be.an('object')
                 chai.expect(res).to.have.status(201)
-                // chai.expect(res).to.be.jsonSchema(userSchema)
+                chai.expect(res).to.be.jsonSchema(userSchema)
             })
     })
 
-    // it(`${apiBasePath}/login - GET`, () => {})
+    it(`${apiBasePath}/login - GET`, async () => {
+        return chai.request(server)
+            .get(`${apiBasePath}/login`)
+            .set('Authorization', 'Basic 01jorcelino@live.com:123456')
+            .end((error, res) => {
+                chai.expect(error).to.be.null
+                chai.expect(res).to.have.status(200)
+                chai.expect(res).to.be.jsonSchema(userSchema)
+            })
+    })
 
-
-    // it(`${apiBasePath}/users - GET`, () => {})
+    it(`${apiBasePath}/users - GET`, () => {
+        return chai.request(server)
+            .get(`${apiBasePath}/users`)
+            .set("Authorization", "Bearer " + token)
+            .end((error, res) => {
+                chai.expect(error).to.be.null
+                chai.expect(res).to.have.status(200)
+                chai.expect(res).to.be.jsonSchema(userSchema)
+            })
+    })
 })
-

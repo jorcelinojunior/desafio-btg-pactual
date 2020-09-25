@@ -38,7 +38,7 @@ exports.login =  async (req, res, next) => {
 
 exports.user = async (req, res, next) => {
     try {
-       const users = await UserModel.find()
+        const users = await UserModel.find()
         res.send(users)
 
     } catch (error) {

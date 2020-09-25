@@ -22,7 +22,7 @@ export const configureRoutes = (server) => {
 
     // PersonalDocument Start
     server.post(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.createDocument)
-    server.get(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.getDocument)
+    server.get(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.getDocuments)
 
     // Generic Start
     server.get(`${apiBasePath}/me`, authMiddleware, controllers.generic.me)

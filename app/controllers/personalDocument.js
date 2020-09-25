@@ -19,9 +19,10 @@ exports.createDocument = async (req, res, next) => {
     }
 }
 
-exports.getDocument = async (req, res, next) => {
+exports.getDocuments = async (req, res, next) => {
     try {
-        const personalDocument = await PersonalDocumentModel.find()
+        const email = req.auth.email
+        const personalDocument = await PersonalDocumentModel.find({login: email})
         res.send({personalDocument}) 
      } catch (error) {
          res.send(error)
