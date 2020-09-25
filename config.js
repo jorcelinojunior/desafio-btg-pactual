@@ -14,7 +14,7 @@ export default {
     DB_PASS          : process.env.DB_PASS || "2.Strong.Coffees.Please",
 
     SECRET_KEY       : '86D5qDFdZjra8kA6Xybq3xCy8ZKCzxMq',
-    TOKEN_EXPIRATION : Number.parseInt(process.env.TOKEN_EXPIRATION || '86400'),
+    TOKEN_EXPIRATION : Number.parseInt(process.env.TOKEN_EXPIRATION || '604800'),
 
     DIR_NAME_FILES   : process.env.DIR_NAME_FILES || path.resolve("./")+"/app/documents",
 

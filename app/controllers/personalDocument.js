@@ -10,6 +10,7 @@ exports.createDocument = async (req, res, next) => {
             ip    : getIPAddress()
         })
 
+        res.status(201)
         res.send({personalDocument})
 
         generateDocument(personalDocument)

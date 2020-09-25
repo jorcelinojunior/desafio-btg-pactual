@@ -1,6 +1,6 @@
 import chai from 'chai'
 import chaiHttp  from 'chai-http'
-import subSet from 'chai-subset'
+import chaiJsonSchema from 'chai-json-schema'
 
 // import user from './../app/controllers/user'
 import {server} from './../app/core/server'
@@ -9,7 +9,7 @@ import Config from './../config'
 const apiBasePath = Config.API_BASE_PATH 
 
 chai.use(chaiHttp)
-chai.use(subSet)
+chai.use(chaiJsonSchema)
 
 describe('Testes de integração', () => {
 
