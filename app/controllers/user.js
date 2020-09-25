@@ -1,7 +1,7 @@
 import * as jwt  from './../utils/jwt'
 import {UserModel} from './../models/User'
 
-exports.signUp = async (req, res, next) => {
+exports.signUp = async (req, resp, next) => {
     try{
         const result = await UserModel.create(req.body)
         const { password, ...user } = result.toObject()
