@@ -8,7 +8,6 @@ export const authMiddleware = async (req, res, next) =>{
         const payload = await jwt.verify(token)
         const user    = await UserModel.findById(payload.user)
 
-        // falta ainda tratar o erro quando falha no verify() ...
         req.auth = user
         next()
     } catch (error) {
