@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { validateCPF } from '../utils/validators'
+import { validateCPF } from './../utils/validators'
 
 const PersonalDocumentSchema = new mongoose.Schema(
     {

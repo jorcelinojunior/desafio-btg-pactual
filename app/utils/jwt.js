@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import Config from '../../config'
+import Config from './../../config'
 
 const secret = Config.SECRET_KEY
 

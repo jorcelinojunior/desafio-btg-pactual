@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Config from '../../config'
+import Config from './../../config'
 
 const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = Config
 const MONGO_URL = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`

@@ -17,7 +17,7 @@ exports.signUp = async (req, res, next) => {
     }
 }
 
-exports.login =  async(req, res, next) => {
+exports.login =  async (req, res, next) => {
     const [hashType, hash] = req.headers.authorization.split(' ')
     const [email, password] = Buffer.from(hash,'base64').toString().split(':')
 

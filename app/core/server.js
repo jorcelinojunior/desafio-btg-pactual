@@ -1,6 +1,6 @@
 import restify from 'restify'
 import {configureRoutes} from './router'
-import Config from '../../config'
+import Config from './../../config'
 
 export const server = restify.createServer(
     {
