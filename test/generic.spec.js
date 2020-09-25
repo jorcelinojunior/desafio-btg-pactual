@@ -17,7 +17,7 @@ const expect = chai.expect;
 
 describe('Generic:', () => {
 
-    it(`${apiBasePath}/me - GET`, () => {
+    it(`${apiBasePath}/me - GET`, (done) => {
         chai.request(server)
             .get(`${apiBasePath}/me`)
             .set("Authorization", "Bearer " + token)
@@ -25,6 +25,7 @@ describe('Generic:', () => {
                 expect(error).to.be.null
                 expect(res).to.be.jsonSchema(meSchema)
                 expect(res).to.have.status(200)
+                done()
             })
     })
 })

@@ -6,21 +6,23 @@ import chaiJsonSchema from 'chai-json-schema'
 import {server} from './../app/core/server'
 import Config from './../config'
 
+import { newCPF, token } from './../app/utils/test'
+
 const apiBasePath = Config.API_BASE_PATH 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNWY2YzI1MGY1NjYzNGEyMGU4Nzg5MWQ0IiwiaWF0IjoxNjAxMDIyNjgxLCJleHAiOjE2MDE2Mjc0ODF9.0yqqHagSzldx9KSGbKfijHBIiCAhmQiOjFsxncVooJE"
 
 const expect = chai.expect;
 
 chai.use(chaiHttp)
 chai.use(chaiJsonSchema)
 
+
 const personalDocumentSchema = {
     title: 'Personal Document Schema v1',
     type: 'object',
-    required: ['personalDocument'],
+    required: {'personalDocument': {}},
     properties: {
         personalDocument: {
-            type: 'array',
+            type: 'object',
             minItems: 0,
             uniqueItems: true
         }
@@ -28,8 +30,7 @@ const personalDocumentSchema = {
 }
 
 describe('PersonalDocument:', () => {
-
-    it(`${apiBasePath}/document - GET`, () => {
+    it(`${apiBasePath}/document - GET`, (done) => {
         chai.request(server)
             .get(`${apiBasePath}/document`)
             .set("Authorization", "Bearer " + token)
@@ -37,24 +38,25 @@ describe('PersonalDocument:', () => {
                 expect(error).to.be.null
                 expect(res).to.have.status(200)
                 expect(res).to.be.jsonSchema(personalDocumentSchema)
+                done()
             })
     })
 
-    it(`${apiBasePath}/document - POST`, () => {
+    it(`${apiBasePath}/document - POST`, (done) => {
         chai.request(server)
             .post(`${apiBasePath}/document`)
             .set("Authorization", "Bearer " + token)
             .send({
                 fullName: "Jorcelino Fernandes da Cunha Junior",
                 data: new Date,
-                cpf: "927.630.000-70",
+                cpf: newCPF,
                 rg: "MG-12.345.678"
             })
             .end((error, res) => {
                 expect(error).to.be.null
                 expect(res).to.be.an('object')
                 expect(res).to.have.status(201)
-                expect(res.body).to.containSubset(personalDocumentSchema)
+                done()
             })
     })
 })

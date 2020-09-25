@@ -6,7 +6,7 @@ exports.signUp = async (req, res, next) => {
         const result = await UserModel.create(req.body)
 
         const { password, ...user } = result.toObject()
-
+    
         const token = jwt.sign({user: user.id})
 
         res.status(201)
@@ -17,7 +17,7 @@ exports.signUp = async (req, res, next) => {
     }
 }
 
-exports.login =  async (req, res, next) => {
+exports.login = async (req, res, next) => {
     const [hashType, hash] = req.headers.authorization.split(' ')
     const [email, password] = Buffer.from(hash,'base64').toString().split(':')
 
@@ -29,6 +29,7 @@ exports.login =  async (req, res, next) => {
         }
 
         const token = jwt.sign({ user: user.id})
+        res.status(200)
         res.send({user, token})
 
     }catch (error) {
