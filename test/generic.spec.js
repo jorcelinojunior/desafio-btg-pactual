@@ -15,7 +15,7 @@ chai.use(chaiJsonSchema)
 const meSchema = {}
 const expect = chai.expect;
 
-describe('Generic:', () => {
+describe('Testes de integração <Generic>', () => {
 
     it(`${apiBasePath}/me - GET`, (done) => {
         chai.request(server)

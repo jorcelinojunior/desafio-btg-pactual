@@ -35,13 +35,11 @@ let userSchema = {
     }
 }
 
-
-describe('User:', () => {
+describe('Testes de integração <User>', () => {
 
     it(`${apiBasePath}/signup - POST`, (done) => {
         chai.request(server)
             .post(`${apiBasePath}/signup`)
-            .set('content-type', 'application/x-www-form-urlencoded')
             .send({
                 name: "Jorcelino Junior",
                 email: newEmail,

@@ -39,4 +39,4 @@ const PersonalDocumentSchema = new mongoose.Schema(
     }
 )
 
-export const PersonalDocumentModel = new mongoose.model('PersonalDocument', PersonalDocumentSchema)
+export const PersonalDocumentModel = mongoose.model('PersonalDocument', PersonalDocumentSchema)

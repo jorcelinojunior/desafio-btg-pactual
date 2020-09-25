@@ -29,7 +29,7 @@ const personalDocumentSchema = {
     }
 }
 
-describe('PersonalDocument:', () => {
+describe('Testes de integração <PersonalDocument>', () => {
     it(`${apiBasePath}/document - GET`, (done) => {
         chai.request(server)
             .get(`${apiBasePath}/document`)
