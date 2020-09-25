@@ -1,5 +1,6 @@
 import {PersonalDocumentModel} from './../models/PersonalDocument'
 import {generateDocument} from './../utils/generateDocument'
+import {getIPAddress} from './../utils/getIPAddress'
 
 exports.createDocument = async (req, res, next) => {
     try {  

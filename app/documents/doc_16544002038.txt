@@ -1,0 +1,10 @@
+
+    Nome Completo      : Jorcelino Fernandes da Cunha Junior
+    Data de Nascimento : Thu Oct 20 1994 00:00:00 GMT-0200 (GMT-03:00)
+    CPF                : 165.440.020-38
+    RG                 : mg-18.548.851
+
+    Usuario Autenticado
+    Login              : 07jorcelino@live.com
+    IP                 : 172.18.31.241
+    
