@@ -1,6 +1,7 @@
 
 import fs from 'fs'
 import { authMiddleware } from './../utils/authMiddleware'
+import Config from './../../config'
 
 let controllers      = {}
 let controllers_path = process.cwd() + '/app/controllers'
@@ -11,20 +12,20 @@ fs.readdirSync(controllers_path).forEach((file) => {
     }
 })
 
-export const configureRoutes = (app) => {
-    const apiBasePath = '/api/v1'
+export const configureRoutes = (server) => {
+    const apiBasePath = Config.API_BASE_PATH
 
     // User Start
-    app.post(`${apiBasePath}/signup`, controllers.user.signUp)
-    app.get(`${apiBasePath}/login`, controllers.user.login)
-    app.get(`${apiBasePath}/users`, authMiddleware, controllers.user.user)
+    server.post(`${apiBasePath}/signup`, controllers.user.signUp)
+    server.get(`${apiBasePath}/login`, controllers.user.login)
+    server.get(`${apiBasePath}/users`, authMiddleware, controllers.user.user)
 
     // PersonalDocument Start
-    app.post(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.createDocument)
-    app.get(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.getDocument)
+    server.post(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.createDocument)
+    server.get(`${apiBasePath}/document`, authMiddleware, controllers.personalDocument.getDocument)
 
     // Generic Start
-    app.get(`${apiBasePath}/me`, authMiddleware, controllers.generic.me)
+    server.get(`${apiBasePath}/me`, authMiddleware, controllers.generic.me)
 }
 
 
